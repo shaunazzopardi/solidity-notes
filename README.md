@@ -23,6 +23,6 @@ Functions declared with the <i>view</i> tag cannot affect state.
 Pure
 ----
 
-Functions declared with the <i>pure</i> tag cannot affect state, or read from it and can only depend on the function arguments, excluding msg (except the signature msg.sig and msg.data), block, and tx. They can also only call pure functions.
+Functions declared with the <i>pure</i> tag cannot affect state, or read from it and can only depend on the function arguments, excluding msg (except the signature msg.sig and msg.data), block, and tx. They can also only call pure functions. So pure functions are stateless functions.
 
 [1] http://solidity.readthedocs.io/en/develop/index.html
