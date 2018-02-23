@@ -25,4 +25,12 @@ Pure
 
 Functions declared with the <i>pure</i> tag cannot affect state, or read from it and can only depend on the function arguments, excluding msg (except the signature msg.sig and msg.data), block, and tx. They can also only call pure functions. So pure functions are stateless functions.
 
+Storage and Memory
+----
+
+<i>BettingContract memory name = BettingContract(_index);</i> is a <b>pointer</b> to the contract at <i>_index</i>, and thus can actually change the contract at that index. 
+
+<i>BettingContract stoarage name = BettingContract(_index);</i> creates a <b>copy</b> of the contract at <i>_index</i>, and thus can actually change the contract at that index. 
+
+
 [1] http://solidity.readthedocs.io/en/develop/index.html
