@@ -32,5 +32,10 @@ Storage and Memory
 
 <i>BettingContract storage name = BettingContract(_index);</i> creates a <b>copy</b> of the contract at <i>_index</i>, and thus can actually change the contract at that index. 
 
+Arrays
+---
+
+Pushing on an array returns the number of elements in the array after the push.
+
 
 [1] http://solidity.readthedocs.io/en/develop/index.html
