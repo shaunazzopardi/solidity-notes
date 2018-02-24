@@ -2,10 +2,14 @@
 Notes on Solidity I intend to keep while learning and getting used to the Solidity language for smart contracts on Ethereum.
 
 
-Arrays as arguments
+Arrays
 -----
 
-Arrays cannot always be passed as argument of public functions, but they can always be passed as arguments of internal or private functions. Only address arrays can be passed as arguments from outside the contract, while other kinds, such as string arrays, cannot but have to be deserialised by the smart contract itself. For example if we want to pass the string array ["hh","yy"], we have to pass as a string with some kind of delimiter or separator, e.g. "hh|yy", we can then identify from within the smart contract.
+Pushing on an array returns the number of elements in the array after the push. 
+
+Annotating arrays with public creates getters and setters automatically. 
+
+<b>Arrays cannot always be passed as argument of public functions</b>, but they can always be passed as arguments of internal or private functions. Only address arrays can be passed as arguments from outside the contract, while other kinds, such as string arrays, cannot but have to be deserialised by the smart contract itself. For example if we want to pass the string array ["hh","yy"], we have to pass as a string with some kind of delimiter or separator, e.g. "hh|yy", we can then identify from within the smart contract.
 
 
 Delegatecalls
@@ -32,10 +36,7 @@ Storage and Memory
 
 <i>BettingContract storage name = BettingContract(_index);</i> creates a <b>copy</b> of the contract at <i>_index</i>, and thus can actually change the contract at that index. 
 
-Arrays
----
 
-Pushing on an array returns the number of elements in the array after the push.
 
 
 [1] http://solidity.readthedocs.io/en/develop/index.html
