@@ -36,7 +36,10 @@ Storage and Memory
 
 <i>BettingContract storage name = BettingContract(_index);</i> creates a <b>copy</b> of the contract at <i>_index</i>, and thus can actually change the contract at that index. 
 
+Expensive stuff
+----
 
+mapping(someType => [someOtherType])
 
 
 [1] http://solidity.readthedocs.io/en/develop/index.html
