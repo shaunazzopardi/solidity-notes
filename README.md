@@ -20,36 +20,37 @@ Contracts can call other contracts. One way of doing this is through delegate ca
 <b>If the contract delegated to has more storage variables than the caller then these will be added to the storage of the first</b>. Try out this simple example inspired from the Parity wallet:
 
 ```
-	contract SimpleLibraryCaller{
-	    function initMultiowned(address[] _owners, uint _required) {
-		_walletLibrary.delegatecall(msg.data);
-	    }
-
-	    function isOwner(address _addr) constant returns (bool) {
-			 return _walletLibrary.delegatecall(msg.data);
-		}
-
-		address _walletLibrary;
+contract SimpleLibraryCaller{
+    
+    function initMultiowned(address[] _owners, uint _required) {
+        _walletLibrary.delegatecall(msg.data);
+    }
+    
+    function isOwner(address _addr) constant returns (bool) {
+		 return _walletLibrary.delegatecall(msg.data);
 	}
+	
+	address _walletLibrary;
+}```
 ```
-```
-	contract SimpleLibrary{
-	    function initMultiowned(address[] _owners, uint _required) {
-		m_ownerIndex[uint(msg.sender)] = 1;
-		for (uint i = 0; i < _owners.length; ++i)
-		{
-		    m_ownerIndex[uint(_owners[i])] = 2 + i;
-		}
-	    }
-
-	    function isOwner(address _addr) constant returns (bool) {
-			 require(m_ownerIndex[uint(_addr)] > 0);
-			 return true;
-		}
-
-		address _walletLibrary;
-		mapping(uint => uint) m_ownerIndex;
+contract SimpleLibrary{
+    
+    function initMultiowned(address[] _owners, uint _required) {
+        m_ownerIndex[uint(msg.sender)] = 1;
+        for (uint i = 0; i < _owners.length; ++i)
+        {
+            m_ownerIndex[uint(_owners[i])] = 2 + i;
+        }
+    }
+    
+    function isOwner(address _addr) constant returns (bool) {
+		 require(m_ownerIndex[uint(_addr)] > 0);
+		 return true;
 	}
+	
+	address _walletLibrary;
+	mapping(uint => uint) m_ownerIndex;
+}
 ```
 
 Also, delegate calls will always return true if there is no throwing in the called method (e.g. through the now deprecated <i>throw</i>, through <i>revert</i>, or through a failed <i>requires</i> or <i>assert</i>).
