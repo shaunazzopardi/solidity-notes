@@ -1,5 +1,5 @@
 # solidity-notes
-Notes on Solidity I intend to keep while learning and getting used to the Solidity language for smart contracts on Ethereum.
+Notes on Solidity I intend to keep while learning and getting used to the Solidity language for smart contracts on Ethereum, mainly for my own reference.
 
 
 Arrays
@@ -17,7 +17,43 @@ Delegatecalls
 
 Contracts can call other contracts. One way of doing this is through delegate calls, which allow the called contract to operate within the caller contract. Take care that the called contract has the same storage variables as the caller contract (and possibly more, i.e. the storage of the called contract is a superset of the storage of the caller contract, or the caller storage is a subset of the called storage), otherwise the delegate call will have no effect.
 
-Also, delegate calls will always return true if there is no throwing in the called method (e.g. through the now deprecated <i>throw</i>, through <i>revert</i>, or through a failed <i>requires</i>).
+<b>If the contract delegated to has more storage variables than the caller then these will be added to the storage of the first</b>. Try out this simple example inspired from the Parity wallet:
+
+...
+contract SimpleLibraryCaller{
+    
+    function initMultiowned(address[] _owners, uint _required) {
+        _walletLibrary.delegatecall(msg.data);
+    }
+    
+    function isOwner(address _addr) constant returns (bool) {
+		 return _walletLibrary.delegatecall(msg.data);
+	}
+	
+	address _walletLibrary;
+}
+
+contract SimpleLibrary{
+    
+    function initMultiowned(address[] _owners, uint _required) {
+        m_ownerIndex[uint(msg.sender)] = 1;
+        for (uint i = 0; i < _owners.length; ++i)
+        {
+            m_ownerIndex[uint(_owners[i])] = 2 + i;
+        }
+    }
+    
+    function isOwner(address _addr) constant returns (bool) {
+		 require(m_ownerIndex[uint(_addr)] > 0);
+		 return true;
+	}
+	
+	address _walletLibrary;
+	mapping(uint => uint) m_ownerIndex;
+}
+...
+
+Also, delegate calls will always return true if there is no throwing in the called method (e.g. through the now deprecated <i>throw</i>, through <i>revert</i>, or through a failed <i>requires</i> or <i>assert</i>).
 
 View
 ----
