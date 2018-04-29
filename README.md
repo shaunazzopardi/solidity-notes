@@ -19,7 +19,7 @@ Contracts can call other contracts. One way of doing this is through delegate ca
 
 <b>If the contract delegated to has more storage variables than the caller then these will be added to the storage of the first</b>. Try out this simple example inspired from the Parity wallet:
 
-```
+~~~~
 contract SimpleLibraryCaller{
     
     function initMultiowned(address[] _owners, uint _required) {
@@ -31,8 +31,10 @@ contract SimpleLibraryCaller{
 	}
 	
 	address _walletLibrary;
-}```
-```
+}
+~~~~
+
+~~~~
 contract SimpleLibrary{
     
     function initMultiowned(address[] _owners, uint _required) {
@@ -51,7 +53,7 @@ contract SimpleLibrary{
 	address _walletLibrary;
 	mapping(uint => uint) m_ownerIndex;
 }
-```
+~~~~
 
 Also, delegate calls will always return true if there is no throwing in the called method (e.g. through the now deprecated <i>throw</i>, through <i>revert</i>, or through a failed <i>requires</i> or <i>assert</i>).
 
